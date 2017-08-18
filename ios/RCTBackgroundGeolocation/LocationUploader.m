@@ -65,8 +65,17 @@
     NSArray *locations = [locationDAO getLocationsForSync];
     
     NSMutableArray *jsonArray = [[NSMutableArray alloc] initWithCapacity:[locations count]];
+    /*
     for (Location *location in locations) {
         [jsonArray addObject:[location toDictionary]];
+    }
+    */
+    if ([locations count] > 1) {
+        for (int i = 1; i < [locations count]; i++) {
+            [jsonArray addObject:[[locations objectAtIndex:i] toDictionary]];
+        }
+    } else {
+        [jsonArray addObject:[[locations objectAtIndex:0] toDictionary]];
     }
     
     NSError *error = nil;
